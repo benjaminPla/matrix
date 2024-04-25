@@ -1,7 +1,10 @@
 [package]
-name = "learning"
-version = "0.1.0"
+authors = ["benjaminpla.dev@gmail.com"]
+description = "matrix effect"
 edition = "2021"
+name = "matrix"
+version = "0.1.0"
+license = "MIT OR Apache-2.0"
 
 [dependencies]
 rand = "0.8.5"
