@@ -12,10 +12,13 @@ struct Char {
 }
 
 impl Char {
-    fn fall(&mut self, mut rng: ThreadRng) {
+    fn fall(&mut self, rows: u16, mut rng: ThreadRng) {
         let ch: char = rng.sample(Alphanumeric).into();
         self.ch = ch;
-        self.row += 1;
+        match self.row == rows {
+            true => self.row = 1,
+            false => self.row += 1,
+        }
     }
 }
 
@@ -37,8 +40,8 @@ fn main() {
         });
 
         for ch in chars.iter_mut() {
-            ch.fall(rng.clone());
-            print!("\x1B[{};{}H{}", ch.row, ch.col, ch.ch);
+            ch.fall(term_size.rows, rng.clone());
+            print!("\x1B[32m\x1B[{};{}H{}\x1B[0m", ch.row, ch.col, ch.ch);
         }
 
         io::stdout().flush().unwrap();
